@@ -1,0 +1,237 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Carta Alma — Design Tokens
+   Papel, tinta e luz quente. Um sistema visual editorial,
+   íntimo e premium — nunca frio, nunca "SaaS azul".
+   ============================================================ */
+
+:root {
+  /* --- Paleta base --- */
+  --color-ivory: #f8f1e7;
+  --color-cream: #fff8ee;
+  --color-parchment: #efe0cb;
+  --color-almond: #d9bfa3;
+  --color-brown: #8a684b;
+  --color-espresso: #2f241d;
+  --color-sage: #a8b5a0;
+  --color-rose: #c9a49a;
+  --color-gold: #b99a5b;
+  --color-ink: #211b17;
+
+  /* --- Semântica --- */
+  --color-background: var(--color-cream);
+  --color-foreground: var(--color-ink);
+  --color-surface: var(--color-ivory);
+  --color-surface-elevated: #ffffff;
+  --color-muted: var(--color-parchment);
+  --color-muted-foreground: var(--color-brown);
+  --color-primary: var(--color-espresso);
+  --color-primary-foreground: var(--color-cream);
+  --color-accent: var(--color-gold);
+  --color-accent-foreground: var(--color-ink);
+  --color-secondary: var(--color-sage);
+  --color-secondary-foreground: var(--color-espresso);
+  --color-border: color-mix(in srgb, var(--color-brown) 22%, transparent);
+  --color-border-strong: color-mix(in srgb, var(--color-brown) 40%, transparent);
+  --color-ring: var(--color-gold);
+  --color-destructive: #a5473a;
+  --color-destructive-foreground: var(--color-cream);
+
+  /* --- Raio --- */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.875rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 1.75rem;
+  --radius-2xl: 2.5rem;
+
+  /* --- Sombras (muito subtis, orgânicas) --- */
+  --shadow-soft: 0 1px 2px rgba(47, 36, 29, 0.04), 0 8px 24px -12px rgba(47, 36, 29, 0.12);
+  --shadow-paper: 0 2px 8px rgba(47, 36, 29, 0.06), 0 16px 40px -20px rgba(47, 36, 29, 0.18);
+  --shadow-lifted: 0 8px 16px rgba(47, 36, 29, 0.08), 0 32px 64px -24px rgba(47, 36, 29, 0.28);
+  --shadow-glow-gold: 0 0 40px -8px rgba(185, 154, 91, 0.35);
+
+  /* --- z-index --- */
+  --z-base: 0;
+  --z-elevated: 10;
+  --z-overlay: 40;
+  --z-modal: 50;
+  --z-toast: 60;
+}
+
+@theme inline {
+  --color-ivory: var(--color-ivory);
+  --color-cream: var(--color-cream);
+  --color-parchment: var(--color-parchment);
+  --color-almond: var(--color-almond);
+  --color-brown: var(--color-brown);
+  --color-espresso: var(--color-espresso);
+  --color-sage: var(--color-sage);
+  --color-rose: var(--color-rose);
+  --color-gold: var(--color-gold);
+  --color-ink: var(--color-ink);
+
+  --color-background: var(--color-background);
+  --color-foreground: var(--color-foreground);
+  --color-surface: var(--color-surface);
+  --color-surface-elevated: var(--color-surface-elevated);
+  --color-muted: var(--color-muted);
+  --color-muted-foreground: var(--color-muted-foreground);
+  --color-primary: var(--color-primary);
+  --color-primary-foreground: var(--color-primary-foreground);
+  --color-accent: var(--color-accent);
+  --color-accent-foreground: var(--color-accent-foreground);
+  --color-secondary: var(--color-secondary);
+  --color-secondary-foreground: var(--color-secondary-foreground);
+  --color-border: var(--color-border);
+  --color-ring: var(--color-ring);
+  --color-destructive: var(--color-destructive);
+  --color-destructive-foreground: var(--color-destructive-foreground);
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+  --radius-2xl: var(--radius-2xl);
+
+  --shadow-soft: var(--shadow-soft);
+  --shadow-paper: var(--shadow-paper);
+  --shadow-lifted: var(--shadow-lifted);
+  --shadow-glow-gold: var(--shadow-glow-gold);
+
+  --font-serif: var(--font-fraunces), "Iowan Old Style", Georgia, serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-letter: var(--font-cormorant), "Iowan Old Style", Georgia, serif;
+
+  --animate-fade-in-up: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-ink-reveal: ink-reveal 1.4s cubic-bezier(0.65, 0, 0.35, 1) both;
+  --animate-float-soft: float-soft 6s ease-in-out infinite;
+  --animate-glow-pulse: glow-pulse 4s ease-in-out infinite;
+  --animate-seal-close: seal-close 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ink-reveal {
+  from {
+    opacity: 0;
+    filter: blur(2px);
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes float-soft {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(0.5deg);
+  }
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+@keyframes seal-close {
+  from {
+    transform: scale(1.4) rotate(-8deg);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-ink);
+}
+
+/* Foco visível e acessível em todo o site */
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Textura de papel muito subtil, aplicável a qualquer secção */
+.paper-texture {
+  position: relative;
+}
+
+.paper-texture::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 0.18  0 0 0 0 0.14  0 0 0 0 0.1  0 0 0 0.035 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 180px 180px;
+}
+
+/* Linhas manuscritas quase invisíveis, para separadores e fundos */
+.bg-manuscript-lines {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 38px,
+    color-mix(in srgb, var(--color-brown) 8%, transparent) 39px,
+    transparent 40px
+  );
+}
+
+.bg-window-light {
+  background:
+    radial-gradient(60% 50% at 20% 0%, color-mix(in srgb, var(--color-gold) 18%, transparent), transparent 70%),
+    radial-gradient(50% 40% at 90% 10%, color-mix(in srgb, var(--color-rose) 14%, transparent), transparent 70%);
+}
+
+.text-balance-pretty {
+  text-wrap: balance;
+}
+
+/* Respeita utilizadores que preferem menos movimento */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
