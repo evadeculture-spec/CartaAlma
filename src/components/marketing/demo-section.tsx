@@ -6,7 +6,7 @@ import { Cake, HandHeart, Heart, Handshake } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Badge } from "@/components/ui/badge";
 import { SectionHeading } from "@/components/marketing/section-heading";
-import { EnvelopeAnimation } from "@/components/decor/envelope-animation";
+import { FloatingEnvelope3D } from "@/components/3d/FloatingEnvelope3D";
 import { cn } from "@/lib/utils";
 
 interface DemoPreset {
@@ -116,7 +116,7 @@ export function DemoSection() {
             </AnimatePresence>
 
             <div className="mt-4 border-t border-border pt-6">
-              <EnvelopeAnimation sealOnView className="max-w-[220px]" />
+              <FloatingEnvelope3D className="max-w-[220px] mx-auto" peekLetter />
             </div>
           </div>
         </div>

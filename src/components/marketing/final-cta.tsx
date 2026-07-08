@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
-import { EnvelopeAnimation } from "@/components/decor/envelope-animation";
+import { FloatingEnvelope3D } from "@/components/3d/FloatingEnvelope3D";
 import { InkRevealText } from "@/components/decor/ink-reveal-text";
 import { SoftGlow } from "@/components/decor/soft-glow";
 
@@ -14,8 +14,8 @@ export function FinalCTA() {
           <InkRevealText text="Há alguém que merece receber uma carta tua?" />
         </h2>
 
-        <div className="w-full max-w-[220px] opacity-90">
-          <EnvelopeAnimation sealOnView />
+        <div className="w-full max-w-[220px] opacity-95">
+          <FloatingEnvelope3D peekLetter sparkleColor="#e8caa0" />
         </div>
 
         <div className="flex flex-col gap-3 sm:flex-row">

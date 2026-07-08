@@ -1,9 +1,11 @@
 "use client";
 
-import { Suspense, useEffect, useMemo, useRef } from "react";
+import { Suspense, useEffect, useRef } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { ContactShadows, Sparkles } from "@react-three/drei";
+import { EffectComposer, Bloom, Vignette } from "@react-three/postprocessing";
 import * as THREE from "three";
+import { Envelope, LetterSheet, PenMesh } from "./envelope-parts";
 
 function CameraAim({ target }: { target: [number, number, number] }) {
   const { camera } = useThree();
@@ -22,57 +24,8 @@ function Desk() {
   return (
     <mesh position={[0, -0.62, 0]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
       <planeGeometry args={[14, 10]} />
-      <meshStandardMaterial color="#7c5c40" roughness={0.92} metalness={0.02} />
+      <meshStandardMaterial color="#7c5c40" roughness={0.9} metalness={0.03} />
     </mesh>
-  );
-}
-
-/** Aba do envelope, articulada na aresta traseira e ligeiramente aberta. */
-function EnvelopeFlap() {
-  const shape = useMemo(() => {
-    const s = new THREE.Shape();
-    s.moveTo(-1.15, 0);
-    s.lineTo(0, -0.72);
-    s.lineTo(1.15, 0);
-    s.lineTo(-1.15, 0);
-    return s;
-  }, []);
-
-  const tiltX = Math.PI / 2 + 0.5;
-
-  return (
-    <group position={[0, 0.03, -0.75]} rotation={[tiltX, 0, 0]}>
-      <mesh castShadow receiveShadow>
-        <shapeGeometry args={[shape]} />
-        <meshStandardMaterial color="#efe0cb" roughness={0.85} side={THREE.DoubleSide} />
-      </mesh>
-      <mesh position={[0, -0.46, -0.014]} rotation={[0, Math.PI, 0]}>
-        <circleGeometry args={[0.16, 32]} />
-        <meshStandardMaterial color="#b99a5b" roughness={0.35} metalness={0.45} />
-      </mesh>
-      <mesh position={[0, -0.46, -0.016]} rotation={[0, Math.PI, 0]}>
-        <ringGeometry args={[0.1, 0.16, 32]} />
-        <meshStandardMaterial
-          color="#6b4f34"
-          roughness={0.5}
-          transparent
-          opacity={0.5}
-          side={THREE.DoubleSide}
-        />
-      </mesh>
-    </group>
-  );
-}
-
-function Envelope() {
-  return (
-    <group position={[0, -0.32, 0.1]}>
-      <mesh castShadow receiveShadow>
-        <boxGeometry args={[2.3, 0.05, 1.5]} />
-        <meshStandardMaterial color="#fff8ee" roughness={0.85} />
-      </mesh>
-      <EnvelopeFlap />
-    </group>
   );
 }
 
@@ -93,35 +46,7 @@ function Letter({ scrollRef }: { scrollRef: React.RefObject<number> }) {
 
   return (
     <group ref={group} position={[0, baseY, baseZ]}>
-      <mesh castShadow receiveShadow rotation={[-Math.PI / 2 + 0.04, 0, 0]}>
-        <boxGeometry args={[1.95, 0.02, 1.28]} />
-        <meshStandardMaterial color="#fdfaf3" roughness={0.7} />
-      </mesh>
-      {Array.from({ length: 5 }).map((_, i) => (
-        <mesh
-          key={i}
-          position={[0, 0.015, -0.4 + i * 0.16]}
-          rotation={[-Math.PI / 2 + 0.04, 0, 0]}
-        >
-          <planeGeometry args={[1.45 - (i % 2) * 0.22, 0.012]} />
-          <meshStandardMaterial color="#3a2f26" opacity={0.3} transparent roughness={1} />
-        </mesh>
-      ))}
-    </group>
-  );
-}
-
-function Pen() {
-  return (
-    <group position={[0.95, -0.575, 0.55]} rotation={[0, 0.55, Math.PI / 2]}>
-      <mesh castShadow>
-        <cylinderGeometry args={[0.026, 0.026, 1.3, 16]} />
-        <meshStandardMaterial color="#211b17" roughness={0.35} metalness={0.2} />
-      </mesh>
-      <mesh position={[0, 0.68, 0]} castShadow>
-        <coneGeometry args={[0.026, 0.13, 16]} />
-        <meshStandardMaterial color="#b99a5b" roughness={0.3} metalness={0.5} />
-      </mesh>
+      <LetterSheet />
     </group>
   );
 }
@@ -147,7 +72,7 @@ function Rig({
       <Desk />
       <Envelope />
       <Letter scrollRef={scrollRef} />
-      <Pen />
+      <PenMesh position={[0.95, -0.575, 0.55]} rotation={[0, 0.55, Math.PI / 2]} />
     </group>
   );
 }
@@ -157,21 +82,27 @@ export default function HeroScene({ pointerRef, scrollRef }: HeroSceneProps) {
     <Canvas
       shadows
       dpr={[1, 1.6]}
-      gl={{ antialias: true, alpha: true, powerPreference: "low-power" }}
+      gl={{
+        antialias: true,
+        alpha: true,
+        powerPreference: "low-power",
+        toneMapping: THREE.ACESFilmicToneMapping,
+        toneMappingExposure: 1,
+      }}
       camera={{ position: [0, 2.15, 4.6], fov: 40 }}
     >
-      <color attach="background" args={["#fff8ee"]} />
-      <fog attach="fog" args={["#fff8ee", 6, 11]} />
-      <ambientLight intensity={0.75} color="#fff3de" />
-      <hemisphereLight args={["#fff3de", "#5a4632", 0.6]} />
+      <color attach="background" args={["#f3e6d2"]} />
+      <fog attach="fog" args={["#f3e6d2", 4.5, 9]} />
+      <ambientLight intensity={0.7} color="#fff3de" />
+      <hemisphereLight args={["#fff3de", "#5a4632", 0.55]} />
       <pointLight
         position={[2.2, 2.4, 2]}
-        intensity={30}
+        intensity={16}
         color="#ffd9a0"
         castShadow
         shadow-mapSize={[512, 512]}
       />
-      <pointLight position={[-2.5, 1.2, -1]} intensity={8} color="#c9a49a" />
+      <pointLight position={[-2.5, 1.2, -1]} intensity={5} color="#c9a49a" />
 
       <CameraAim target={[0, -0.3, 0.15]} />
 
@@ -186,6 +117,15 @@ export default function HeroScene({ pointerRef, scrollRef }: HeroSceneProps) {
           far={2}
           color="#2f241d"
         />
+        <EffectComposer multisampling={0}>
+          <Bloom
+            intensity={0.3}
+            luminanceThreshold={0.92}
+            luminanceSmoothing={0.25}
+            mipmapBlur
+          />
+          <Vignette eskil={false} offset={0.25} darkness={0.4} />
+        </EffectComposer>
       </Suspense>
     </Canvas>
   );
