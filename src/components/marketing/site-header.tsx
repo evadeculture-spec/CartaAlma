@@ -34,7 +34,7 @@ export function SiteHeader() {
           : "bg-transparent"
       )}
     >
-      <Container className="flex h-18 items-center justify-between py-4">
+      <Container className="flex h-16 items-center justify-between py-3">
         <Link href="/" className="font-serif text-xl tracking-tight text-ink">
           Carta Alma
         </Link>

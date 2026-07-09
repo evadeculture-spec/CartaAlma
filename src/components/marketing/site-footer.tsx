@@ -4,7 +4,7 @@ import { Container } from "@/components/ui/container";
 export function SiteFooter() {
   return (
     <footer className="border-t border-border bg-ivory">
-      <Container className="flex flex-col gap-10 py-14">
+      <Container className="flex flex-col gap-8 py-10">
         <div className="flex flex-col gap-8 sm:flex-row sm:justify-between">
           <div className="max-w-sm">
             <span className="font-serif text-xl text-ink">Carta Alma</span>

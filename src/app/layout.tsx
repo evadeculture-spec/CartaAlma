@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter, Cormorant_Garamond } from "next/font/google";
+import { Fraunces, Inter, Cormorant_Garamond, Caveat } from "next/font/google";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -20,6 +20,12 @@ const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
   style: ["normal", "italic"],
+  display: "swap",
+});
+
+const caveat = Caveat({
+  variable: "--font-caveat",
+  subsets: ["latin", "latin-ext"],
   display: "swap",
 });
 
@@ -76,7 +82,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-PT"
-      className={`${fraunces.variable} ${inter.variable} ${cormorant.variable} h-full antialiased`}
+      className={`${fraunces.variable} ${inter.variable} ${cormorant.variable} ${caveat.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground selection:bg-gold selection:text-ink">
         {children}

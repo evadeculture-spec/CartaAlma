@@ -102,6 +102,7 @@
   --font-serif: var(--font-fraunces), "Iowan Old Style", Georgia, serif;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-letter: var(--font-cormorant), "Iowan Old Style", Georgia, serif;
+  --font-hand: var(--font-caveat), "Segoe Script", "Bradley Hand", cursive;
 
   --animate-fade-in-up: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
   --animate-ink-reveal: ink-reveal 1.4s cubic-bezier(0.65, 0, 0.35, 1) both;
@@ -222,6 +223,191 @@ body {
 
 .text-balance-pretty {
   text-wrap: balance;
+}
+
+/* ============================================================
+   Carta hiper-realista — papel, tinta, cera e correio
+   ============================================================ */
+
+/* Folha de carta: papel de algodão com grão, luz e vinco */
+.paper-sheet {
+  background:
+    radial-gradient(120% 80% at 50% 0%, rgba(255, 253, 247, 0.85), transparent 60%),
+    linear-gradient(158deg, #fdf9ef 0%, #f8f0dd 52%, #f1e5cc 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    inset 0 0 0 0.5px rgba(138, 104, 75, 0.14),
+    inset 0 0 48px rgba(120, 88, 50, 0.06),
+    0 1px 2px rgba(47, 36, 29, 0.14),
+    0 10px 22px -8px rgba(47, 36, 29, 0.22),
+    0 36px 70px -30px rgba(47, 36, 29, 0.38);
+}
+
+.paper-sheet::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0.6;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 0.2  0 0 0 0 0.15  0 0 0 0 0.1  0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23p)'/></svg>");
+  background-size: 220px 220px;
+}
+
+.paper-sheet::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    radial-gradient(130% 90% at 50% 118%, rgba(94, 66, 38, 0.07), transparent 58%),
+    radial-gradient(80% 40% at 100% 0%, rgba(255, 255, 255, 0.35), transparent 60%);
+}
+
+/* Vinco horizontal de dobra em três */
+.paper-crease {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 14px;
+  pointer-events: none;
+  z-index: 1;
+  background: linear-gradient(
+    to bottom,
+    transparent 0,
+    rgba(94, 66, 38, 0.03) 5px,
+    rgba(94, 66, 38, 0.07) 7px,
+    rgba(255, 255, 255, 0.32) 8px,
+    rgba(255, 255, 255, 0.1) 10px,
+    transparent 14px
+  );
+}
+
+/* Tinta de caneta: azul-escura, com ligeiríssimo sangramento */
+.ink-hand {
+  font-family: var(--font-hand);
+  color: #2d3a58;
+  text-shadow: 0 0 0.55px rgba(45, 58, 88, 0.55);
+}
+
+.ink-hand-sepia {
+  font-family: var(--font-hand);
+  color: #4a3423;
+  text-shadow: 0 0 0.55px rgba(74, 52, 35, 0.5);
+}
+
+/* Envelope: papel entrançado, arestas em relevo */
+.envelope-paper {
+  background:
+    radial-gradient(110% 70% at 50% -8%, rgba(255, 255, 255, 0.55), transparent 55%),
+    linear-gradient(152deg, #fbf4e2 0%, #f4e9cf 55%, #eddfc0 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 0 0 0 1px rgba(138, 104, 75, 0.14),
+    inset 0 -12px 26px rgba(120, 88, 50, 0.09),
+    0 2px 4px rgba(47, 36, 29, 0.14),
+    0 18px 38px -14px rgba(47, 36, 29, 0.32);
+}
+
+.envelope-paper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 0.2  0 0 0 0 0.15  0 0 0 0 0.1  0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23p)'/></svg>");
+  background-size: 220px 220px;
+}
+
+/* Selo postal com denteado verdadeiro (recortes nas margens) */
+.stamp-perforation {
+  background-color: #f7f2e4;
+  background-image: radial-gradient(circle, transparent 2.6px, #f7f2e4 2.9px);
+  background-size: 9.5px 9.5px;
+  background-position: -4.75px -4.75px;
+  filter: drop-shadow(0 1px 1.5px rgba(47, 36, 29, 0.35));
+}
+
+/* Carimbo dos correios: tinta gasta, aplicado por cima do selo */
+.postmark-ink {
+  color: #43507b;
+  mix-blend-mode: multiply;
+  opacity: 0.72;
+}
+
+/* Selo de cera: lacre vermelho profundo com relevo */
+.wax-seal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 47% 53% 51% 49% / 52% 48% 53% 47%;
+  background: radial-gradient(
+    circle at 32% 26%,
+    #b64a41 0%,
+    #93312c 32%,
+    #6f2220 62%,
+    #551716 100%
+  );
+  box-shadow:
+    inset 0 2px 3px rgba(255, 255, 255, 0.28),
+    inset 0 -5px 9px rgba(40, 8, 8, 0.55),
+    inset 0 0 0 1px rgba(60, 12, 12, 0.35),
+    0 2px 4px rgba(47, 36, 29, 0.3),
+    0 10px 18px -6px rgba(87, 24, 24, 0.5);
+}
+
+.wax-seal::before {
+  content: "";
+  position: absolute;
+  inset: 12%;
+  border-radius: 52% 48% 50% 50% / 48% 52% 49% 51%;
+  box-shadow:
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.3),
+    inset 0 -2.5px 5px rgba(40, 8, 8, 0.55);
+}
+
+.wax-seal-letter {
+  font-family: var(--font-serif);
+  color: #832c26;
+  text-shadow:
+    0 1px 1px rgba(255, 214, 200, 0.4),
+    0 -1px 2px rgba(40, 8, 8, 0.75);
+}
+
+/* Cursor de escrita na demonstração */
+.writing-caret {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  margin-left: 1px;
+  vertical-align: -0.18em;
+  background: #2d3a58;
+  animation: caret-blink 1s steps(2, start) infinite;
+}
+
+@keyframes caret-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Sombra de pousio: elipse difusa por baixo da composição */
+.rest-shadow {
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(47, 36, 29, 0.28),
+    rgba(47, 36, 29, 0.12) 55%,
+    transparent 75%
+  );
+  filter: blur(6px);
 }
 
 /* Respeita utilizadores que preferem menos movimento */
