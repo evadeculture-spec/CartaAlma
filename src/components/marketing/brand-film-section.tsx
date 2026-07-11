@@ -34,12 +34,16 @@ export function BrandFilmSection() {
           </p>
         </div>
 
-        <Reveal className="w-full">
+        <Reveal className="flex w-full justify-center">
+          {/* Sem aspect-ratio forçado: o vídeo é mostrado no formato original,
+              sem cortes nem zoom, seja ele horizontal ou vertical. */}
           <div className="relative overflow-hidden rounded-2xl border border-gold/25 shadow-paper">
             <video
               ref={videoRef}
-              className="aspect-video w-full object-cover"
+              className="block h-auto max-h-[70vh] w-auto max-w-full"
               src="/videos/carta-alma-brand-film.mp4"
+              width={872}
+              height={1056}
               autoPlay
               muted
               loop
