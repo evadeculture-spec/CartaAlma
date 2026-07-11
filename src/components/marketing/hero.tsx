@@ -1,11 +1,11 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Container } from "@/components/ui/container";
 import { SoftGlow } from "@/components/decor/soft-glow";
 import { InkRevealText } from "@/components/decor/ink-reveal-text";
-import { HeroCartaAlma3D } from "@/components/3d/HeroCartaAlma3D";
 
 export function Hero() {
   return (
@@ -48,8 +48,17 @@ export function Hero() {
           </p>
         </div>
 
-        <div className="h-[420px] w-full sm:h-[480px] lg:h-[620px]">
-          <HeroCartaAlma3D />
+        <div className="flex h-[420px] w-full justify-center sm:h-[480px] lg:h-[620px]">
+          <div className="relative aspect-[3/4] h-full overflow-hidden rounded-3xl border border-almond/60 shadow-paper">
+            <Image
+              src="/images/carta-alma-kit.jpg"
+              alt="Kit Carta Alma: caixa preta aberta com papel de algodão, envelope preto, caneta de aparo e selo de cera dourado, à luz de velas"
+              fill
+              sizes="(min-width: 1024px) 465px, 80vw"
+              className="object-cover"
+              priority
+            />
+          </div>
         </div>
       </Container>
     </section>
